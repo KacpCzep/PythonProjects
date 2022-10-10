@@ -1,0 +1,37 @@
+from pathlib import Path
+from PIL import Image
+
+def count_files():
+    my_project_path = Path(r"C:\Users\student\Documents\esl\pon1350") # r(C:\Users... -> we give the raw file path
+    counter = 0
+    try:
+        files = my_project_path.iterdir() #counts the number of files in folder
+    except FileNotFoundError: #This error was gathered from error list (previous tries while no files were added)
+        print('Error - no files')
+        raise
+
+    for file in files:
+        if file.is_file():
+            counter += 1
+
+    print(counter)
+
+
+def recursion():
+    recursion_path = Path(r"C:\Users\student\Documents")
+    for file in recursion_path.rglob("*"):
+        print(file)
+
+def enter_photo_data():
+    print("Enter photo from pon1350 in format '/filename.jpg' ")
+    conversion_path = str(Path(r"C:\Users\student\Documents\esl\pon1350")) + input()
+    return conversion_path
+
+def conversion_jpg_to_png(conversion_path):
+    image = Image.open(conversion_path)
+    image.save(r"C:\Users\student\Documents\esl\pon1350\converted.png")
+
+
+
+if __name__ == '__main__' :
+    conversion_jpg_to_png(enter_photo_data())
