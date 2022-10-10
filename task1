@@ -1,13 +1,20 @@
+def function():
+    if __name__ == '__main__' :
 
-if __name__ == '__main__' :
+        print("Hello world")
 
-    print("Hello world")
+        #print("Enter name, surname and birth date")
+        #data = input()
+        #print(data)
 
-    print("Enter name, surname and birth date")
-    data = input()
-    print(data)
+        code = "1234"
+        wrong = "Wrong code"
 
-    code = 1234
-    wrong = "Wrong code"
-    while input() != code:
-        print(wrong)
+        print("Enter code:")
+        read_data = input()
+        while read_data != code:
+            print(wrong)
+            read_data = input()
+        print("Code correct")
+
+function()
