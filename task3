@@ -1,0 +1,11 @@
+from pathlib import Path
+
+def search_words():
+    data_from_file = open(Path(r"C:\Users\student\Documents\esl\pon1350\e.txt"))
+    
+
+def delete_words():
+
+
+if __name__ == '__main__' :
+    search_words()
