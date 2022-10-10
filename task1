@@ -1,0 +1,13 @@
+
+if __name__ == '__main__' :
+
+    print("Hello world")
+
+    print("Enter name, surname and birth date")
+    data = input()
+    print(data)
+
+    code = 1234
+    wrong = "Wrong code"
+    while input() != code:
+        print(wrong)
