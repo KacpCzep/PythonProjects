@@ -10,14 +10,13 @@ def search_words():
     print(readable_data)
     splitted = readable_data.split()
 
-    #dict_with_words_to_utilize = {'1' : 'się', '2' : 'nigdy', '3' : 'oraz', '4' : 'dlaczego'}
     list = ["się", "nigdy", "oraz", "dlaczego"]
     for word in splitted:
         if word in list:
             splitted.remove(word)
 
     #tokenizacja i zastapienie calego tekstu jako pojedyncze slowa i szukanei po nich
-    #dodac slowa do slownika
+
     print(splitted)
 
 
