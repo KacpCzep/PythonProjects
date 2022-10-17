@@ -1,11 +1,29 @@
 from pathlib import Path
 
+
+
 def search_words():
-    data_from_file = open(Path(r"C:\Users\student\Documents\esl\pon1350\e.txt"))
-    
+    data_from_file_path = r"C:\Users\student\Documents\esl\pon1350\e.txt"
+    with open(data_from_file_path, "r", encoding="utf-8") as data_from_file:  # After line 9, the .txt file will be automatically closed
+        # We do not have to take care of this in further code, especially where the function declaration finishes
+        readable_data = data_from_file.read()
+    print(readable_data)
+    splitted = readable_data.split()
+
+    #dict_with_words_to_utilize = {'1' : 'się', '2' : 'nigdy', '3' : 'oraz', '4' : 'dlaczego'}
+    list = ["się", "nigdy", "oraz", "dlaczego"]
+    for word in splitted:
+        if word in list:
+            splitted.remove(word)
+
+    #tokenizacja i zastapienie calego tekstu jako pojedyncze slowa i szukanei po nich
+    #dodac slowa do slownika
+    print(splitted)
+
+
 
 def delete_words():
+    print(" ")
 
-
-if __name__ == '__main__' :
+if __name__ == '__main__':
     search_words()
