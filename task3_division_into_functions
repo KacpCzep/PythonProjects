@@ -1,0 +1,41 @@
+from pathlib import Path
+
+#Tokenizacja i szukanie po słowach
+
+def search_words():
+    data_from_file_path = r"C:\Users\student\Documents\esl\pon1350\e.txt"
+    with open(data_from_file_path, "r", encoding="utf-8") as data_from_file:  # After line 9, the .txt file will be automatically closed
+        # We do not have to take care of this in further code, especially where the function declaration finishes
+        readable_data = data_from_file.read()
+    return tokenizacja(readable_data)
+
+
+def tokenizacja(readable_data):
+    splitted = readable_data.split(" ")
+    return splitted
+
+
+def delete_words(splitted):
+    lista = ["się", "nigdy", "oraz", "dlaczego"]
+    for word in splitted:
+        if word in lista:
+            splitted.remove(word)
+    return splitted
+
+def reverse_token(splitted):
+    return " ".join(splitted)
+
+def save_to_file(splitted):
+    with open(r"C:\Users\student\Documents\esl\pon1350\eee.txt", "w", encoding="utf-8") as data_from_file:  # After line 9, the .txt file will be automatically closed
+        # We do not have to take care of this in further code, especially where the function declaration finishes
+
+        data_from_file.write(splitted)
+
+def main():
+    splitted = search_words()
+    del_w = delete_words(splitted)
+    text = reverse_token(del_w)
+    save_to_file(text)
+
+if __name__ == '__main__':
+    main()
