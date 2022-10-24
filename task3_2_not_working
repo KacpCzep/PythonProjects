@@ -1,0 +1,46 @@
+from pathlib import Path
+
+def search_words():
+    data_from_file_path = r"C:\Users\student\Documents\esl\pon1350\e.txt"
+    with open(data_from_file_path, "r", encoding="utf-8") as data_from_file:  # After line 9, the .txt file will be automatically closed
+        # We do not have to take care of this in further code, especially where the function declaration finishes
+        readable_data = data_from_file.read()
+    return tokenizacja(readable_data)
+
+
+def tokenizacja(readable_data):
+    splitted = readable_data.split(" ")
+    return splitted
+
+def swap_words(splitted):
+    swapped_dict = {
+        "i" : "oraz",
+        "oraz" : "i",
+        "nigdy" : "prawie nigdy",
+        "dlaczego" : "czemu"
+    }
+
+    for word in splitted:
+        for key, value in swapped_dict.items():
+            word = word.replace(word, value)
+
+    return splitted
+
+def reverse_token(splitted):
+    return " ".join(splitted)
+
+def save_to_file(splitted):
+    with open(r"C:\Users\student\Documents\esl\pon1350\ss.txt", "w", encoding="utf-8") as data_from_file:  # After line 9, the .txt file will be automatically closed
+        # We do not have to take care of this in further code, especially where the function declaration finishes
+
+        data_from_file.write(splitted)
+
+
+def main():
+    splitted = search_words()
+    del_w = swap_words(splitted)
+    text = reverse_token(del_w)
+    save_to_file(text)
+
+if __name__ == '__main__':
+    main()
