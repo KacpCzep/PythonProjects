@@ -1,0 +1,60 @@
+#Zaczac od testow zamiast pisania algorytmu. Najciezsze ma zostac na koniec
+import unittest
+import numpy as np
+import math
+
+# class TestStringMethods(unittest.TestCase):
+#
+#     def test_input(self):
+#         #given
+#         input_lisst =  np.array([1, 5, 4])
+#         correct = []
+#         #when
+#         result= foo(input_lisst)
+#         #then
+#
+#         self.assertListEqual( result, correct )
+#
+
+
+
+
+
+def algorithm_coefficients():
+    print("Enter function coefficients:")
+    a, b, c = input("Enter three values: ").split()
+    return values_into_array_int(a, b, c)
+
+def values_into_array_int(a, b, c):
+    values = np.array([int(a), int(b), int(c)])
+    return values
+
+def calc_delta(values):
+    delta = values[1]**2 - 4*values[0]*values[2]
+    return delta
+
+def create_array_of_values(values, delta):
+    set_of_values = np.append(values, delta)
+    return set_of_values
+
+def calc_roots(set_of_values):
+    delta_root = int(math.sqrt(set_of_values[3]))
+    if set_of_values[3] > 0:
+        root1 = (-1 * set_of_values[1] - delta_root)/ 2 * set_of_values[0]
+        root2 = (-1 * set_of_values[1] + delta_root)/ 2 * set_of_values[0]
+    if set_of_values[3] == 0:
+        root1 = ( -1 * set_of_values[1]) / 2 * set_of_values[0]
+        root2 = "None"
+
+    return root1, root2
+
+def print_roots(root1, root2):
+    print(root1 + root2)
+
+if __name__ == '__main__':
+    # unittest.main()
+    values = algorithm_coefficients()
+    delta = calc_delta(values)
+    create_array = create_array_of_values(values, delta)
+    calc = calc_roots(create_array)
+    print_roots(calc)
