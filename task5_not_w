@@ -1,0 +1,86 @@
+import re  # regex
+from typing import Union
+
+
+class Complex:
+    def __init__(self, real: Union[float, int], imaginary: complex):
+        self.real = real
+        self.imaginary = imaginary
+
+    def __add__(self, other):
+        return Complex(self.real + other.real, self.imaginary + other.imaginary)
+
+    def __sub__(self, other):
+        return Complex(self.real - other.real, self.imaginary - other.imaginary)
+
+    @classmethod
+    def from_str(cls, val: str):
+        return Complex()
+
+
+def class_add_outcome(complex1, complex2):
+    return complex1 + complex2
+
+
+def print_class_add_outcome(outcome):
+    print(str(outcome.real), str(outcome.imaginary))
+
+
+# FORMAT: (2+6j)+(4-1j)
+def enter_user_sign():
+    entered = input("Enter sign as (real1 +- imag1) +- (real2 +- imag2)\n")
+    splitted = re.split("[(*)]", entered)
+    # For this format, splitted looks: ['', '2+6j', '+', '4-1j', '']
+
+    first_sign_lookup = re.search("[+]", splitted[1])
+    if first_sign_lookup: #If true, so the sign is "+"
+        first_part_splitted = re.split("[+]", splitted[1])  # ADD
+        token1 = "FIRST_ADD"
+    else: #If false, the sign SHOULD BE "-"
+        first_part_splitted = re.split("[-]", splitted[1])  # SUBTRACT
+        token1 = "FIRST_SUB" #Token will help with
+
+    print(first_part_splitted)
+
+
+
+    split_sign = splitted[2]
+
+    second_sign_lookup = re.search("[+]", splitted[3])
+    if second_sign_lookup:
+        second_part_splitted = re.split("[+]", splitted[3])  # ADD
+        token2 = "SECOND_ADD"
+    else:
+        second_part_splitted = re.split("[-]", splitted[3])  # SUBTRACT
+        token2 = "SECOND_SUB"
+
+
+    if token1 == "FIRST_ADD":
+        complex_first = Complex(int(first_part_splitted[0]), first_part_splitted[1])
+    else:
+        complex_first = Complex(int(first_part_splitted[0]), first_part_splitted[1])
+
+    if token2 == "SECOND_ADD":
+        complex_second = Complex(int(second_part_splitted[0]), second_part_splitted[1])
+    else:
+        complex_second = Complex(int(second_part_splitted[0]), second_part_splitted[1])
+
+
+    if split_sign == '+':
+        outcome = complex_first + complex_second
+    if split_sign == '-':
+        outcome = 2
+    return outcome
+
+
+def main():
+    com = Complex(1, 2j)
+    com1 = Complex(4, -3j)
+    outcome_add = class_add_outcome(com1, com)
+    print_class_add_outcome(outcome_add)
+    af = enter_user_sign()
+    print(str(af.real), str(af.imaginary))
+
+
+if __name__ == '__main__':
+    main()
