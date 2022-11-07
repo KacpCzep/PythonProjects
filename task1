@@ -1,20 +1,33 @@
-def function():
-    if __name__ == '__main__' :
+def enter_data():
+    print("Enter name, surname and birth date\n")
+    data = input()
+    return data
 
-        print("Hello world")
 
-        #print("Enter name, surname and birth date")
-        #data = input()
-        #print(data)
+def lock_information():
+    code = "1234"
+    wrong =  "Wrong code"
+    return code, wrong
 
-        code = "1234"
-        wrong = "Wrong code"
+def enter_lock_data():
+    print("Enter 4-digit code:")
+    return input()
 
-        print("Enter code:")
+
+def lock_check_code(read_data, code, wrong):
+    while read_data != code:
+        print(wrong)
         read_data = input()
-        while read_data != code:
-            print(wrong)
-            read_data = input()
-        print("Code correct")
+    return "Code correct"
 
-function()
+def main():
+    print("Hello world")
+    #print(enter_data())
+    lock_info = lock_information()
+    entered = enter_lock_data()
+    check = lock_check_code(entered, lock_info[0], lock_info[1])
+    print(check)
+
+
+if __name__ == '__main__':
+    main()
