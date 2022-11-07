@@ -7,7 +7,7 @@ def setting_up_matrix_128x128(matrix):
             matrix[x][y] = random.randint(1,100)
     return matrix
 
-def matrix_product(matrix1, matrix2):
+def matrix_sum(matrix1, matrix2):
     outcome = np.zeros((128,128))
     for x in range(128):
         for y in range(128):
@@ -24,7 +24,7 @@ def main():
     print("-----")
     print(second)
     print("-----")
-    product = matrix_product(matrix, matrix1)
+    product = matrix_sum(matrix, matrix1)
     print(product)
 
 if __name__ == '__main__':
