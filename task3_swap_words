@@ -10,7 +10,7 @@ def search_words():
     return tokenizacja(readable_data)
 
 
-def tokenizacja(readable_data):
+def tokenizacja(readable_data): #Delete spaces and divide sentence into list of words
     splitted = readable_data.split(" ")
     return splitted
 
@@ -27,13 +27,13 @@ def load_dict():
 
 def swap_words(splitted, swapped_dict):
     split_len = len(splitted)
-    for number in range(0, split_len):
-            if splitted[number] in swapped_dict.keys():
-                splitted[number] = swapped_dict[splitted[number]]
+    for number in range(0, split_len): #Using words in increasing order, through splitted list
+            if splitted[number] in swapped_dict.keys(): #If the word from splitted is included in dictionary...
+                splitted[number] = swapped_dict[splitted[number]] #then change it with dictionary key for this word
     return splitted
 
 
-def reverse_token(splitted):
+def reverse_token(splitted): #Add spaces which were deleted for tokening purposes
     return " ".join(splitted)
 
 
