@@ -1,0 +1,26 @@
+import random
+
+def setting_up_list(list):
+    for x in range(50):
+        list.append(random.randint(1,100))
+    return list
+
+def sort_in_decreasing_order(list):
+    list_len = len(list)
+    for y in range(list_len):
+        for x in range(0, list_len - 1):
+            if list[x] < list[x+1]:
+                memory = list [x+1]
+                list[x+1] = list[x]
+                list[x] = memory
+    return list
+
+def main():
+    list = []
+    created_list = setting_up_list(list)
+    print(created_list)
+    sorted_list = sort_in_decreasing_order(created_list)
+    print(sorted_list)
+
+if __name__ == '__main__':
+    main()
