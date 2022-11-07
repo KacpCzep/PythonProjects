@@ -1,0 +1,102 @@
+# Very simple program that DOESNT WORK for all option like negative real parts in numbers.
+# FORMAT: (2+j6)+(4-j1)
+# Is created for a few solutions. Enhancing need much more time to create a proper program.
+
+import re  # regex
+from typing import Union
+
+
+class Complex:
+    def __init__(self, real: Union[float, int], imaginary: Union[float, int]):
+        self.real = real
+        self.imaginary = imaginary
+
+    def __add__(self, other):
+        return Complex(self.real + other.real, self.imaginary + other.imaginary)
+
+    def __sub__(self, other):
+        return Complex(self.real - other.real, self.imaginary - other.imaginary)
+
+    def print_complex(self):
+        if self.imaginary == 0:
+            return '%d' % self.real
+        if self.real == 0:
+            return 'j%d' % self.im
+        if self.imaginary < 0:
+            return '%d - j%d' % (self.real, -self.imaginary)
+        else:
+            return '%d + j%d' % (self.real, self.imaginary)
+
+
+def class_add_outcome(complex1, complex2):
+    return complex1 + complex2
+
+
+def enter_user_sign():
+    return input("Enter sign as (real1 +- imag1) +- (real2 +- imag2)\n")
+
+
+def split_complex(entered):
+    splitted = re.split("[(*)]", entered)
+    # For this format, splitted looks: ['', '2+j6', '+', '4-j1', '']
+
+    split_sign = splitted[2]
+
+    first_sign_lookup = re.search("[+]", splitted[1])
+    if first_sign_lookup:  # If true, so the sign is "+"
+        first_part_splitted = re.split(r"[+]", splitted[1])  # ADD
+        temp_first_part_splitted = re.split(r"j", first_part_splitted[1])
+        first_part_splitted[1] = temp_first_part_splitted[1]
+
+
+    else:  # If false, the sign SHOULD BE "-"
+        first_part_splitted = re.split(r"-", splitted[1])  # SUBTRACT
+        temp_first_part_splitted = re.split(r"j", first_part_splitted[1])
+        first_part_splitted[1] = "-" + temp_first_part_splitted[1]
+
+    second_sign_lookup = re.search("[+]", splitted[3])
+    if second_sign_lookup:
+        second_part_splitted = re.split(r"[+]", splitted[3])  # ADD
+        temp_second_part_splitted = re.split(r"j", second_part_splitted[1])
+        second_part_splitted[1] = temp_second_part_splitted[1]
+
+
+    else:
+        second_part_splitted = re.split(r"[-]", splitted[3])  # SUBTRACT
+        temp_second_part_splitted = re.split(r"j", second_part_splitted[1])
+        second_part_splitted[1] = "-" + temp_second_part_splitted[1]
+
+    return split_sign, first_part_splitted, second_part_splitted
+
+
+def create_complex_from_split(first_part_splitted, second_part_splitted):
+    complex_first = Complex(int(first_part_splitted[0]), int(first_part_splitted[1]))
+    complex_second = Complex(int(second_part_splitted[0]), int(second_part_splitted[1]))
+
+    return complex_first, complex_second
+
+
+def outcome(split_sign, complex_first, complex_second):
+    if split_sign == '+':
+        outcome = complex_first + complex_second
+        print(outcome.print_complex())
+
+    else:  # So sign SHOULD BE "-"
+        outcome = complex_first - complex_second
+        print(outcome.print_complex())
+
+
+def main():
+    com = Complex(1, 2)
+    com1 = Complex(4, -34)
+    outcome_add = class_add_outcome(com1, com)
+    print(outcome_add.print_complex())
+
+    entered = enter_user_sign()
+    split = split_complex(entered)
+    complex_created = create_complex_from_split(split[1], split[2])
+    answer = outcome(split[0], complex_created[0], complex_created[1])
+
+
+if __name__ == '__main__':
+    main()
