@@ -1,0 +1,50 @@
+import random
+
+
+def setting_up_list(list):
+    for x in range(50):
+        list.append(random.randint(1,100))
+    return list
+
+def sort_in_decreasing_order(list):
+    list_len = len(list)
+    for y in range(list_len):
+        for x in range(0, list_len - 1):
+            if list[x] < list[x+1]:
+                memory = list [x+1]
+                list[x+1] = list[x]
+                list[x] = memory
+    return list
+
+def length_calc(list1, list2):
+    list1_len = len(list1)
+    list2_len = len(list2)
+    print(list1_len, list2_len)
+    if list2_len > list1_len:
+        min_max =[list1_len, list2_len]
+    else:
+        min_max = [list2_len, list1_len]
+    return min_max
+
+def scalar_product(list1, list2, min_max):
+    outcome = []
+    for x in range(0, min_max[1] - 1):
+        if x < min_max[0]:
+            outcome[x] = list1[x] * list2[x]
+        else:
+            outcome[x] = 0
+    return outcome
+
+def main():
+    list = []
+    list2 = [3,5,3,2]
+    created_list = setting_up_list(list)
+    print(created_list)
+    min_maxx = length_calc(list2, created_list)
+    outcome = scalar_product(list2, created_list, min_maxx)
+    print(outcome)
+
+if __name__ == '__main__':
+    main()
+    
+    ##nie działa
