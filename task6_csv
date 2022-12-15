@@ -1,0 +1,50 @@
+import csv
+import pandas as pd
+
+#Task list
+
+
+def main():
+    file = "tasklist.csv"
+    entered_data = []
+    try:
+        entered_data = pd.read_csv(file)
+        print(entered_data)
+    except pd.errors.EmptyDataError:
+        print("Nothing in the list")
+
+
+    print("You access list by creating a new task in format Name-Date-Task")
+    print("You can also delete a task by typing del.")
+    task_to_do = input()
+    if task_to_do == "del":
+        name = input()
+        entered_data = pd.read_csv(file)
+        entered_data = pd.DataFrame(entered_data)
+        entered_data.drop(entered_data[entered_data['Task'] == name].index, inplace=True)
+        entered_data.to_csv(file,index=False,header=True)
+        try:
+            entered_data = pd.read_csv(file)
+            print(entered_data)
+        except pd.errors.EmptyDataError:
+            print("Nothing in the list")
+
+        return
+    row = task_to_do.split()
+
+    data_to_use = {
+        'Person': [row[0]],
+        'Date': [row[1]],
+        'Task': [row[2]]
+    }
+
+    dataFrame = pd.DataFrame(data_to_use)
+    dataFrame.to_csv(file, mode='a', index=False, header=False)
+    try:
+        entered_data = pd.read_csv(file)
+        print(entered_data)
+    except pd.errors.EmptyDataError:
+        print("Nothing in the list")
+
+if __name__ == '__main__':
+    main()
