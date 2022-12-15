@@ -1,0 +1,39 @@
+import numpy as np
+import multiprocessing as multip
+import time
+import cv2
+from matplotlib import pyplot as plt
+
+a = np.random.randint(0, 10, size=[100, 100])
+
+
+def histogram(data,arg):
+    outcome = {}
+    for slot in data:
+        outcome[slot] = outcome.get(slot, 0) + 1
+    return outcome
+
+
+def main():
+
+    pool = multip.Pool(multip.cpu_count())
+    print(multip.cpu_count())
+    data = a.tolist()
+
+    time_counted = time.time()
+    outcome = [pool.apply_async(histogram, args=(row,1)) for row in data]
+    print(str(time.time() - time_counted))
+    pool.close()
+
+    time_counted = time.time()
+    outcome = []
+    for row in data:
+        outcome.append(histogram(row, 1))
+    print(str(time.time() - time_counted))
+
+    print(outcome)
+    plt.plot(outcome)
+
+
+if __name__ == '__main__':
+    main()
