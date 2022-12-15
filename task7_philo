@@ -1,0 +1,132 @@
+
+class Fork:
+    def __init__(self,name,state):
+        self.name = name
+        self.state = state
+
+    def take(self):
+        if self.state == False:
+            print("Already being used!")
+            return 1
+        else:
+            self.state = False
+            return 0
+
+
+    def returnFork(self):
+        self.state = True
+
+    def __str__(self):
+        return str(self.state)
+
+
+forks = [Fork("1",True), Fork("2",True), Fork("3",True), Fork("4",True), Fork("5",True)]
+
+
+class Philosoph:
+    def __init__(self, name, fork1, fork2):
+        self.name = name
+        self.fork1 = fork1-1
+        self.fork2 = fork2-1
+        self.state = "Think"
+        self.counter = 0
+        self.forks = []
+
+    def eat(self,count):
+        self.state = "Eat"
+        self.counter = count
+        result1 = forks[self.fork1].take()
+        result2 = forks[self.fork2].take()
+        if result1 == 1 and result2 == 0:
+            print("Unsuccesfull")
+            self.state = "Hungry"
+            self.counter = 0
+            forks[self.fork2].returnFork()
+        elif result2 == 1 and result1 == 0:
+            print("Unsuccesfull")
+            self.state = "Hungry"
+            self.counter = 0
+            forks[self.fork1].returnFork()
+        elif result2 == 1 and result1 == 1:
+            print("Unsuccesfull")
+            self.state = "Hungry"
+            self.counter = 0
+
+
+
+    def think(self):
+        self.state = "Think"
+
+    def wantEat(self):
+        self.state = "Hungry"
+
+    def giveFork(self, index):
+        self.forks.append(index)
+        if self.forks.count(self.fork1) and self.forks.count(self.fork2):
+            self.eat(4)
+
+    def checkState(self):
+        if self.state == "Eat":
+            print(self.name+" is eating...")
+            self.counter -= 1
+            if self.counter == 0:
+                forks[self.fork1].returnFork()
+                forks[self.fork2].returnFork()
+                self.think()
+
+        if self.state == "Think":
+            print(self.name + " is thinking...")
+        elif self.state == "Hungry":
+            print(self.name + " wants to eat something...")
+
+
+def main():
+
+    philosophes = [Philosoph("A",1,5), Philosoph("B",1,2), Philosoph("C",2,3), Philosoph("D",3,4), Philosoph("E",4,5)]
+    queue = []
+
+    philosophes[0].eat(4)
+    philosophes[1].eat(4)
+    philosophes[2].eat(5)
+    philosophes[1].state = "Hungry"
+    philosophes[3].state = "Hungry"
+
+    print("forks: ")
+    for fork in forks:
+        print(fork)
+
+    for i in range(0,10):
+
+        for p in philosophes:
+            p.checkState()
+            state = p.state
+            print(state)
+            if state == "Hungry":
+                queue.append(p)
+
+        print()
+
+        counter = 0
+        print("queue: ")
+        print(queue)
+        print("forks: ")
+        for fork in forks:
+            print(fork)
+        for p in queue:
+            if forks[p.fork1].state:
+                forks[p.fork1].take()
+                p.giveFork(p.fork1)
+
+            if forks[p.fork2].state:
+                forks[p.fork2].take()
+                p.giveFork(p.fork2)
+
+            if p.state == "Eat":
+                queue.pop(counter)
+                counter -= 1
+            counter += 1
+
+
+
+if __name__ == '__main__':
+    main()
